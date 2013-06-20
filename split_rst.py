@@ -11,14 +11,22 @@ def is_all_equal_signs(s):
 def is_chapter_header(text, line_num):
 	"""
 		Returns True if:
-		1. the current line is not longer than the next line
-		2. the next line consists of entirely = characters
+		1. Current line is not longer than the next line
+		2. Next line consists of entirely = characters
 	"""
 	return (len(text[line_num]) > 0 and 
 		len(text[line_num]) <= len(text[line_num+1]) and
 		is_all_equal_signs(text[line_num+1]))
 
 def header_to_filename(header_string):
+	"""
+		Quick and dirty conversion of a header string to a filename.
+		1. Caps are lowercased.
+		2. Spaces are replaced with underscores.
+		
+		TODO: replace any potentially bad characters. (There's gotta
+		be a Python module out there that can be used for this.)
+	"""
 	return header_string.lower().replace(' ', '_') + ".rst"
 
 input = open('huge_file.rst', 'r').read().split('\n')
