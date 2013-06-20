@@ -30,6 +30,7 @@ def header_to_filename(header_string):
     return header_string.lower().replace(' ', '_') + ".rst"
 
 input = open('huge_file.rst', 'r').read().split('\n')
+output_dir = "output/"
 
 next_filename = ""
 next_file_content = []
@@ -41,7 +42,7 @@ for line_num in range(0, len(input) - 1):
         if next_filename:
             
             # Write out next_file_content
-            output = open(next_filename, 'w')
+            output = open(output_dir + next_filename, 'w')
             output.write('\n'.join(next_file_content))
             output.close()
             
@@ -51,3 +52,8 @@ for line_num in range(0, len(input) - 1):
         next_filename = header_to_filename(input[line_num])
         
     next_file_content.append(input[line_num])
+    
+# Write out the last piece of content
+output = open(output_dir + next_filename, 'w')
+output.write('\n'.join(next_file_content))
+output.close()
